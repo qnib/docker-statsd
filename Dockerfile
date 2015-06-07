@@ -2,7 +2,9 @@ FROM qnib/terminal:cos7
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
 # statsd
-RUN echo "2015-04-15.2";yum clean all;yum install -y qnib-statsd
+RUN echo "2015-04-15.2";yum clean all && \
+    yum install -y qnib-statsd python-pip && \
+    pip install statsd
 ADD opt/qnib/bin/restart_statsd.sh /opt/qnib/bin/
 ADD etc/statsd/config.js /etc/statsd/config.js
 ADD etc/consul.d/check_statsd.json /etc/consul.d/
