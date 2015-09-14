@@ -1,10 +1,11 @@
-FROM qnib/terminal:cos7
-MAINTAINER "Christian Kniep <christian@qnib.org>"
+FROM qnib/terminal:fd22
 
 # statsd
-RUN echo "2015-04-15.2";yum clean all && \
-    yum install -y qnib-statsd python-pip && \
+RUN echo "2015-09-10";dnf clean all && \
+    dnf install -y statsd python-pip && \
     pip install statsd
 ADD opt/qnib/bin/restart_statsd.sh /opt/qnib/bin/
 ADD etc/statsd/config.js /etc/statsd/config.js
 ADD etc/consul.d/check_statsd.json /etc/consul.d/
+ADD opt/qnib/statsd/config.js /opt/qnib/statsd/
+ADD etc/supervisord.d/statsd.ini /etc/supervisord.d/
